@@ -3,6 +3,64 @@
    Three.js + GSAP + Lenis
    ═══════════════════════════════════════════ */
 
+/* ─── PRELOADER BOOT SEQUENCE ─────────────── */
+(function initPreloader() {
+  const loader   = document.getElementById('preloader');
+  const bar      = document.getElementById('preloaderBar');
+  const statusEl = document.getElementById('preloaderStatus');
+  const pctEl    = document.getElementById('preloaderPct');
+  if (!loader) return;
+
+  const steps = [
+    { pct: 15,  msg: 'INITIALIZING KERNEL...' },
+    { pct: 32,  msg: 'LOADING NEURAL MESH...' },
+    { pct: 55,  msg: 'MOUNTING FILE SYSTEM...' },
+    { pct: 71,  msg: 'DECRYPTING ASSETS...' },
+    { pct: 88,  msg: 'CALIBRATING RENDERER...' },
+    { pct: 100, msg: 'ACCESS GRANTED' },
+  ];
+
+  let current = 0;
+  function runStep() {
+    if (current >= steps.length) {
+      setTimeout(() => {
+        loader.classList.add('hidden');
+        document.body.classList.add('loaded');
+        document.getElementById('floatWidget').classList.add('visible');
+      }, 500);
+      return;
+    }
+    const step = steps[current++];
+    gsap.to(bar, { width: step.pct + '%', duration: 0.4, ease: 'power2.inOut' });
+    if (statusEl) statusEl.textContent = step.msg;
+    if (pctEl)    pctEl.textContent    = step.pct + '%';
+    setTimeout(runStep, 380 + Math.random() * 180);
+  }
+  runStep();
+})();
+
+/* ─── SCROLL PROGRESS BAR ────────────────── */
+window.addEventListener('scroll', () => {
+  const el   = document.getElementById('scrollProgress');
+  if (!el) return;
+  const doc  = document.documentElement;
+  const pct  = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
+  el.style.width = pct + '%';
+}, { passive: true });
+
+/* ─── LIVE CLOCK ─────────────────────────── */
+function updateClock() {
+  const el = document.getElementById('fwTime');
+  if (!el) return;
+  const now = new Date();
+  const hh  = String(now.getHours()).padStart(2, '0');
+  const mm  = String(now.getMinutes()).padStart(2, '0');
+  const ss  = String(now.getSeconds()).padStart(2, '0');
+  el.textContent = `${hh}:${mm}:${ss}`;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
 /* ─── LENIS SMOOTH SCROLL ─────────────────── */
 const lenis = new Lenis({
   duration: 1.2,
@@ -565,3 +623,58 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (target) lenis.scrollTo(target, { offset: -80, duration: 1.4 });
   });
 });
+
+/* ─── MAGNETIC BUTTONS ───────────────────── */
+document.querySelectorAll('.magnetic').forEach(el => {
+  el.addEventListener('mousemove', (e) => {
+    const rect   = el.getBoundingClientRect();
+    const cx     = rect.left + rect.width  / 2;
+    const cy     = rect.top  + rect.height / 2;
+    const dx     = (e.clientX - cx) * 0.35;
+    const dy     = (e.clientY - cy) * 0.35;
+    gsap.to(el, { x: dx, y: dy, duration: 0.4, ease: 'power2.out' });
+  });
+  el.addEventListener('mouseleave', () => {
+    gsap.to(el, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.4)' });
+  });
+});
+
+/* ─── PROJECT TITLE GLITCH ON HOVER ────────── */
+document.querySelectorAll('.project-title').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    gsap.timeline()
+      .to(el, { skewX: 8, duration: 0.07, ease: 'none' })
+      .to(el, { skewX: -6, duration: 0.07, ease: 'none' })
+      .to(el, { skewX: 4, duration: 0.06, ease: 'none' })
+      .to(el, { skewX: 0, duration: 0.06, ease: 'none' });
+  });
+});
+
+/* ─── SKILL CARD COUNT-UP ON ENTER ─────────── */
+ScrollTrigger.create({
+  trigger: '.skills-grid',
+  start: 'top 70%',
+  once: true,
+  onEnter: () => {
+    document.querySelectorAll('.skill-card').forEach(card => {
+      const fill = card.querySelector('.skill-level-fill');
+      const lvl  = parseFloat(getComputedStyle(fill).getPropertyValue('--lvl'));
+      gsap.fromTo({ v: 0 }, { v: lvl }, {
+        duration: 1.4,
+        ease: 'power2.out',
+        onUpdate: function() {},
+      });
+    });
+  }
+});
+
+/* ─── TICKER REVERSE ON HOVER ───────────────── */
+const tickerTrack = document.getElementById('tickerTrack');
+if (tickerTrack) {
+  tickerTrack.parentElement.addEventListener('mouseenter', () => {
+    tickerTrack.style.animationPlayState = 'paused';
+  });
+  tickerTrack.parentElement.addEventListener('mouseleave', () => {
+    tickerTrack.style.animationPlayState = 'running';
+  });
+}

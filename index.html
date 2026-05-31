@@ -21,6 +21,24 @@
 </head>
 <body>
 
+  <!-- ═══════════════════ PRELOADER ═══════════════════ -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-inner">
+      <div class="preloader-logo">
+        <span class="pl-cipher">CIPHER</span><span class="pl-exe">.EXE</span>
+      </div>
+      <div class="preloader-bar-wrap">
+        <div class="preloader-bar" id="preloaderBar"></div>
+      </div>
+      <div class="preloader-status" id="preloaderStatus">BOOTING SYSTEM...</div>
+      <div class="preloader-pct" id="preloaderPct">0%</div>
+    </div>
+    <div class="preloader-grid"></div>
+  </div>
+
+  <!-- ═══════════════════ PROGRESS BAR ═══════════════════ -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
   <!-- ═══════════════════ CURSOR ═══════════════════ -->
   <div class="cursor" id="cursor"></div>
   <div class="cursor-trail" id="cursorTrail"></div>
@@ -30,6 +48,12 @@
 
   <!-- ═══════════════════ SCANLINES ═══════════════════ -->
   <div class="scanlines"></div>
+
+  <!-- ═══════════════════ FLOATING CLOCK ═══════════════════ -->
+  <div class="float-widget" id="floatWidget">
+    <div class="fw-time" id="fwTime">00:00:00</div>
+    <div class="fw-label">SYS:CLOCK</div>
+  </div>
 
   <!-- ═══════════════════ NAV ═══════════════════ -->
   <nav class="nav" id="nav">
@@ -80,11 +104,11 @@
         </div>
 
         <div class="hero-cta">
-          <a href="#projects" class="btn btn--primary">
+          <a href="#projects" class="btn btn--primary magnetic">
             <span class="btn-text">ACCESS ARCHIVES</span>
             <span class="btn-arrow">→</span>
           </a>
-          <a href="#contact" class="btn btn--ghost">
+          <a href="#contact" class="btn btn--ghost magnetic">
             <span class="btn-text">INITIATE CONTACT</span>
           </a>
         </div>
@@ -104,6 +128,53 @@
       </div>
     </div>
   </section>
+
+  <!-- ═══════════════════ TICKER ═══════════════════ -->
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="tickerTrack">
+      <span>FULL STACK DEVELOPMENT</span>
+      <span class="ticker-sep">✦</span>
+      <span>WEBGL &amp; THREE.JS</span>
+      <span class="ticker-sep">✦</span>
+      <span>UI / UX DESIGN</span>
+      <span class="ticker-sep">✦</span>
+      <span>GSAP ANIMATIONS</span>
+      <span class="ticker-sep">✦</span>
+      <span>SHADER PROGRAMMING</span>
+      <span class="ticker-sep">✦</span>
+      <span>REACT &amp; NEXT.JS</span>
+      <span class="ticker-sep">✦</span>
+      <span>NODE.JS &amp; PYTHON</span>
+      <span class="ticker-sep">✦</span>
+      <span>CLOUD ARCHITECTURE</span>
+      <span class="ticker-sep">✦</span>
+      <span>CREATIVE CODING</span>
+      <span class="ticker-sep">✦</span>
+      <span>OPEN FOR PROJECTS</span>
+      <span class="ticker-sep">✦</span>
+      <!-- duplicate for seamless loop -->
+      <span>FULL STACK DEVELOPMENT</span>
+      <span class="ticker-sep">✦</span>
+      <span>WEBGL &amp; THREE.JS</span>
+      <span class="ticker-sep">✦</span>
+      <span>UI / UX DESIGN</span>
+      <span class="ticker-sep">✦</span>
+      <span>GSAP ANIMATIONS</span>
+      <span class="ticker-sep">✦</span>
+      <span>SHADER PROGRAMMING</span>
+      <span class="ticker-sep">✦</span>
+      <span>REACT &amp; NEXT.JS</span>
+      <span class="ticker-sep">✦</span>
+      <span>NODE.JS &amp; PYTHON</span>
+      <span class="ticker-sep">✦</span>
+      <span>CLOUD ARCHITECTURE</span>
+      <span class="ticker-sep">✦</span>
+      <span>CREATIVE CODING</span>
+      <span class="ticker-sep">✦</span>
+      <span>OPEN FOR PROJECTS</span>
+      <span class="ticker-sep">✦</span>
+    </div>
+  </div>
 
   <!-- ═══════════════════ ABOUT ═══════════════════ -->
   <section class="section about" id="about">
@@ -302,6 +373,8 @@
       <div class="projects-list">
 
         <article class="project-item" data-index="01">
+          <div class="card-corner card-corner--tl"></div>
+          <div class="card-corner card-corner--br"></div>
           <div class="project-num">01</div>
           <div class="project-info">
             <div class="project-meta">
@@ -327,6 +400,8 @@
         </article>
 
         <article class="project-item project-item--reverse" data-index="02">
+          <div class="card-corner card-corner--tl"></div>
+          <div class="card-corner card-corner--br"></div>
           <div class="project-num">02</div>
           <div class="project-info">
             <div class="project-meta">
@@ -352,6 +427,8 @@
         </article>
 
         <article class="project-item" data-index="03">
+          <div class="card-corner card-corner--tl"></div>
+          <div class="card-corner card-corner--br"></div>
           <div class="project-num">03</div>
           <div class="project-info">
             <div class="project-meta">
