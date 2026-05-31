@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CIPHER.EXE — Portfolio</title>
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/bundled/lenis.min.js"></script>
+</head>
+<body>
+
+  <!-- ═══════════════════ PRELOADER ═══════════════════ -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-inner">
+      <div class="preloader-logo">
+        <span class="pl-cipher">CIPHER</span><span class="pl-exe">.EXE</span>
+      </div>
+      <div class="preloader-bar-wrap">
+        <div class="preloader-bar" id="preloaderBar"></div>
+      </div>
+      <div class="preloader-status" id="preloaderStatus">BOOTING SYSTEM...</div>
+      <div class="preloader-pct" id="preloaderPct">0%</div>
+    </div>
+    <div class="preloader-grid"></div>
+  </div>
+
+  <!-- ═══════════════════ PROGRESS BAR ═══════════════════ -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ═══════════════════ CURSOR ═══════════════════ -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-trail" id="cursorTrail"></div>
+
+  <!-- ═══════════════════ NOISE OVERLAY ═══════════════════ -->
+  <div class="noise-overlay"></div>
+
+  <!-- ═══════════════════ SCANLINES ═══════════════════ -->
+  <div class="scanlines"></div>
+
+  <!-- ═══════════════════ FLOATING CLOCK ═══════════════════ -->
+  <div class="float-widget" id="floatWidget">
+    <div class="fw-time" id="fwTime">00:00:00</div>
+    <div class="fw-label">SYS:CLOCK</div>
+  </div>
+
+  <!-- ═══════════════════ NAV ═══════════════════ -->
+  <nav class="nav" id="nav">
+    <div class="nav-logo">
+      <span class="glitch-text" data-text="CIPHER">CIPHER</span>
+      <span class="nav-logo-ext">.EXE</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero" class="nav-link" data-text="SYS.INIT">SYS.INIT</a></li>
+      <li><a href="#about" class="nav-link" data-text="PROFILE">PROFILE</a></li>
+      <li><a href="#skills" class="nav-link" data-text="MODULES">MODULES</a></li>
+      <li><a href="#projects" class="nav-link" data-text="ARCHIVES">ARCHIVES</a></li>
+      <li><a href="#contact" class="nav-link" data-text="UPLINK">UPLINK</a></li>
+    </ul>
+    <div class="nav-status">
+      <span class="status-dot"></span>
+      <span class="status-text">ONLINE</span>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <section class="hero" id="hero">
+    <canvas id="heroCanvas"></canvas>
+
+    <div class="hero-overlay">
+      <div class="hero-system-log">
+        <span class="log-line" id="logLine">INITIALIZING SYSTEM...</span>
+      </div>
+
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <span class="bracket">[</span>
+          <span class="eyebrow-text">CLASSIFIED OPERATOR</span>
+          <span class="bracket">]</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="title-line" id="titleLine1">FULL STACK</span>
+          <span class="title-line glitch-main" id="titleLine2" data-text="DEVELOPER">DEVELOPER</span>
+          <span class="title-line title-line--red" id="titleLine3">& DESIGNER</span>
+        </h1>
+
+        <div class="hero-sub">
+          <p class="hero-sub-text">
+            <span class="sub-bracket">//</span>
+            Building digital experiences at the edge of technology
+          </p>
+        </div>
+
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn--primary magnetic">
+            <span class="btn-text">ACCESS ARCHIVES</span>
+            <span class="btn-arrow">→</span>
+          </a>
+          <a href="#contact" class="btn btn--ghost magnetic">
+            <span class="btn-text">INITIATE CONTACT</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-data-panel">
+        <div class="data-row"><span class="data-key">STATUS</span><span class="data-val data-val--green">ACTIVE</span></div>
+        <div class="data-row"><span class="data-key">CLEARANCE</span><span class="data-val">LEVEL_7</span></div>
+        <div class="data-row"><span class="data-key">PROJECTS</span><span class="data-val data-val--red">24</span></div>
+        <div class="data-row"><span class="data-key">XP</span><span class="data-val">5+ YRS</span></div>
+        <div class="data-row"><span class="data-key">LOCATION</span><span class="data-val">GRID://NODE_42</span></div>
+      </div>
+
+      <div class="hero-scroll-hint">
+        <div class="scroll-line"></div>
+        <span>SCROLL TO CONTINUE</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ TICKER ═══════════════════ -->
+  <div class="ticker-wrap">
+    <div class="ticker-track" id="tickerTrack">
+      <span>FULL STACK DEVELOPMENT</span>
+      <span class="ticker-sep">✦</span>
+      <span>WEBGL &amp; THREE.JS</span>
+      <span class="ticker-sep">✦</span>
+      <span>UI / UX DESIGN</span>
+      <span class="ticker-sep">✦</span>
+      <span>GSAP ANIMATIONS</span>
+      <span class="ticker-sep">✦</span>
+      <span>SHADER PROGRAMMING</span>
+      <span class="ticker-sep">✦</span>
+      <span>REACT &amp; NEXT.JS</span>
+      <span class="ticker-sep">✦</span>
+      <span>NODE.JS &amp; PYTHON</span>
+      <span class="ticker-sep">✦</span>
+      <span>CLOUD ARCHITECTURE</span>
+      <span class="ticker-sep">✦</span>
+      <span>CREATIVE CODING</span>
+      <span class="ticker-sep">✦</span>
+      <span>OPEN FOR PROJECTS</span>
+      <span class="ticker-sep">✦</span>
+      <!-- duplicate for seamless loop -->
+      <span>FULL STACK DEVELOPMENT</span>
+      <span class="ticker-sep">✦</span>
+      <span>WEBGL &amp; THREE.JS</span>
+      <span class="ticker-sep">✦</span>
+      <span>UI / UX DESIGN</span>
+      <span class="ticker-sep">✦</span>
+      <span>GSAP ANIMATIONS</span>
+      <span class="ticker-sep">✦</span>
+      <span>SHADER PROGRAMMING</span>
+      <span class="ticker-sep">✦</span>
+      <span>REACT &amp; NEXT.JS</span>
+      <span class="ticker-sep">✦</span>
+      <span>NODE.JS &amp; PYTHON</span>
+      <span class="ticker-sep">✦</span>
+      <span>CLOUD ARCHITECTURE</span>
+      <span class="ticker-sep">✦</span>
+      <span>CREATIVE CODING</span>
+      <span class="ticker-sep">✦</span>
+      <span>OPEN FOR PROJECTS</span>
+      <span class="ticker-sep">✦</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ ABOUT ═══════════════════ -->
+  <section class="section about" id="about">
+    <div class="section-bg-grid"></div>
+
+    <div class="container">
+      <div class="section-header">
+        <span class="section-index">01</span>
+        <h2 class="section-title">
+          <span class="glitch-text" data-text="PROFILE.DAT">PROFILE.DAT</span>
+        </h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-visual">
+          <div class="avatar-frame">
+            <div class="avatar-inner">
+              <div class="avatar-hex"></div>
+              <div class="avatar-code-rain" id="codeRain"></div>
+              <div class="avatar-label">
+                <span>ID: 0x4F2A</span>
+              </div>
+            </div>
+            <div class="avatar-scanbar"></div>
+          </div>
+
+          <div class="about-stats">
+            <div class="stat-item">
+              <div class="stat-bar-wrap">
+                <span class="stat-name">NEURAL SYNC</span>
+                <span class="stat-num">98%</span>
+              </div>
+              <div class="stat-bar"><div class="stat-fill" style="--w:98%"></div></div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-bar-wrap">
+                <span class="stat-name">SYSTEM UPTIME</span>
+                <span class="stat-num">99.9%</span>
+              </div>
+              <div class="stat-bar"><div class="stat-fill" style="--w:99.9%"></div></div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-bar-wrap">
+                <span class="stat-name">CODE INTEGRITY</span>
+                <span class="stat-num">94%</span>
+              </div>
+              <div class="stat-bar"><div class="stat-fill" style="--w:94%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-content">
+          <div class="about-terminal">
+            <div class="terminal-header">
+              <span class="t-dot t-dot--red"></span>
+              <span class="t-dot t-dot--yellow"></span>
+              <span class="t-dot t-dot--green"></span>
+              <span class="t-title">cipher@portfolio:~$</span>
+            </div>
+            <div class="terminal-body">
+              <p class="t-line"><span class="t-prompt">$</span> <span class="t-cmd">whoami</span></p>
+              <p class="t-output">Full Stack Developer & UI/UX Designer</p>
+              <p class="t-line"><span class="t-prompt">$</span> <span class="t-cmd">cat about.txt</span></p>
+              <p class="t-output">I engineer digital experiences that live at the<br>
+              intersection of art and technology. Specializing<br>
+              in immersive interfaces, real-time graphics, and<br>
+              high-performance web applications.</p>
+              <p class="t-line"><span class="t-prompt">$</span> <span class="t-cmd">ls -la skills/</span></p>
+              <p class="t-output t-output--dim">Loading module index...</p>
+              <p class="t-line"><span class="t-cursor">▋</span></p>
+            </div>
+          </div>
+
+          <div class="about-tags">
+            <span class="tag">WebGL</span>
+            <span class="tag">Three.js</span>
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">TypeScript</span>
+            <span class="tag">GLSL</span>
+            <span class="tag">Python</span>
+            <span class="tag">AWS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ SKILLS ═══════════════════ -->
+  <section class="section skills" id="skills">
+    <canvas id="skillsCanvas"></canvas>
+
+    <div class="container">
+      <div class="section-header">
+        <span class="section-index">02</span>
+        <h2 class="section-title">
+          <span class="glitch-text" data-text="SYS.MODULES">SYS.MODULES</span>
+        </h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card" data-skill="FRONTEND">
+          <div class="skill-card-inner">
+            <div class="skill-icon">
+              <svg viewBox="0 0 60 60"><polygon points="30,5 55,50 5,50" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <h3 class="skill-name">FRONTEND</h3>
+            <div class="skill-items">
+              <span>React / Next.js</span>
+              <span>Three.js / WebGL</span>
+              <span>GSAP / Framer</span>
+              <span>TypeScript</span>
+            </div>
+            <div class="skill-level">
+              <div class="skill-level-fill" style="--lvl: 95%"></div>
+            </div>
+          </div>
+          <div class="skill-card-glow"></div>
+        </div>
+
+        <div class="skill-card" data-skill="BACKEND">
+          <div class="skill-card-inner">
+            <div class="skill-icon">
+              <svg viewBox="0 0 60 60"><rect x="10" y="10" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2"/><line x1="10" y1="22" x2="50" y2="22" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <h3 class="skill-name">BACKEND</h3>
+            <div class="skill-items">
+              <span>Node.js / Express</span>
+              <span>Python / FastAPI</span>
+              <span>PostgreSQL / Redis</span>
+              <span>GraphQL</span>
+            </div>
+            <div class="skill-level">
+              <div class="skill-level-fill" style="--lvl: 88%"></div>
+            </div>
+          </div>
+          <div class="skill-card-glow"></div>
+        </div>
+
+        <div class="skill-card" data-skill="DEVOPS">
+          <div class="skill-card-inner">
+            <div class="skill-icon">
+              <svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="22" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="30" cy="30" r="8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <h3 class="skill-name">DEVOPS</h3>
+            <div class="skill-items">
+              <span>Docker / K8s</span>
+              <span>AWS / GCP</span>
+              <span>CI/CD Pipelines</span>
+              <span>Terraform</span>
+            </div>
+            <div class="skill-level">
+              <div class="skill-level-fill" style="--lvl: 80%"></div>
+            </div>
+          </div>
+          <div class="skill-card-glow"></div>
+        </div>
+
+        <div class="skill-card" data-skill="SHADER">
+          <div class="skill-card-inner">
+            <div class="skill-icon">
+              <svg viewBox="0 0 60 60"><path d="M10,30 Q20,10 30,30 Q40,50 50,30" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            </div>
+            <h3 class="skill-name">SHADERS</h3>
+            <div class="skill-items">
+              <span>GLSL / WGSL</span>
+              <span>WebGPU</span>
+              <span>Particle Systems</span>
+              <span>Post-Processing</span>
+            </div>
+            <div class="skill-level">
+              <div class="skill-level-fill" style="--lvl: 85%"></div>
+            </div>
+          </div>
+          <div class="skill-card-glow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ PROJECTS ═══════════════════ -->
+  <section class="section projects" id="projects">
+    <div class="section-bg-grid"></div>
+
+    <div class="container">
+      <div class="section-header">
+        <span class="section-index">03</span>
+        <h2 class="section-title">
+          <span class="glitch-text" data-text="ARCHIVES">ARCHIVES</span>
+        </h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="projects-list">
+
+        <article class="project-item" data-index="01">
+          <div class="card-corner card-corner--tl"></div>
+          <div class="card-corner card-corner--br"></div>
+          <div class="project-num">01</div>
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="project-tag">WebGL</span>
+              <span class="project-tag">Three.js</span>
+              <span class="project-tag">GLSL</span>
+            </div>
+            <h3 class="project-title">NEXUS PROTOCOL</h3>
+            <p class="project-desc">Immersive 3D data visualization platform with real-time particle simulations and procedural geometry generation. Built for classified research environments.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">VIEW FILE →</a>
+              <a href="#" class="project-link project-link--ghost">SRC CODE</a>
+            </div>
+          </div>
+          <div class="project-preview">
+            <div class="preview-screen">
+              <canvas class="project-canvas" id="projectCanvas1"></canvas>
+              <div class="preview-overlay">
+                <span class="preview-label">LIVE PREVIEW</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-item project-item--reverse" data-index="02">
+          <div class="card-corner card-corner--tl"></div>
+          <div class="card-corner card-corner--br"></div>
+          <div class="project-num">02</div>
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="project-tag">React</span>
+              <span class="project-tag">Node.js</span>
+              <span class="project-tag">AI</span>
+            </div>
+            <h3 class="project-title">PHANTOM GRID</h3>
+            <p class="project-desc">AI-powered design system generator with neural style transfer and automated component scaffolding. Reduces UI development cycles by 70%.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">VIEW FILE →</a>
+              <a href="#" class="project-link project-link--ghost">SRC CODE</a>
+            </div>
+          </div>
+          <div class="project-preview">
+            <div class="preview-screen">
+              <canvas class="project-canvas" id="projectCanvas2"></canvas>
+              <div class="preview-overlay">
+                <span class="preview-label">LIVE PREVIEW</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-item" data-index="03">
+          <div class="card-corner card-corner--tl"></div>
+          <div class="card-corner card-corner--br"></div>
+          <div class="project-num">03</div>
+          <div class="project-info">
+            <div class="project-meta">
+              <span class="project-tag">WebRTC</span>
+              <span class="project-tag">WebSocket</span>
+              <span class="project-tag">Rust</span>
+            </div>
+            <h3 class="project-title">DARKNET MESH</h3>
+            <p class="project-desc">Decentralized peer-to-peer communication network with end-to-end encryption and distributed node architecture for secure data transfer.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">VIEW FILE →</a>
+              <a href="#" class="project-link project-link--ghost">SRC CODE</a>
+            </div>
+          </div>
+          <div class="project-preview">
+            <div class="preview-screen">
+              <canvas class="project-canvas" id="projectCanvas3"></canvas>
+              <div class="preview-overlay">
+                <span class="preview-label">LIVE PREVIEW</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ CONTACT ═══════════════════ -->
+  <section class="section contact" id="contact">
+    <canvas id="contactCanvas"></canvas>
+
+    <div class="container">
+      <div class="section-header">
+        <span class="section-index">04</span>
+        <h2 class="section-title">
+          <span class="glitch-text" data-text="UPLINK.SYS">UPLINK.SYS</span>
+        </h2>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p class="contact-tagline">
+            Ready to build something extraordinary?<br>
+            <span class="red">Let's connect.</span>
+          </p>
+
+          <div class="contact-channels">
+            <a href="mailto:cipher@domain.io" class="channel-item">
+              <span class="channel-icon">✉</span>
+              <span class="channel-label">EMAIL UPLINK</span>
+              <span class="channel-val">cipher@domain.io</span>
+            </a>
+            <a href="#" class="channel-item">
+              <span class="channel-icon">⌥</span>
+              <span class="channel-label">GITHUB NODE</span>
+              <span class="channel-val">github.com/cipher</span>
+            </a>
+            <a href="#" class="channel-item">
+              <span class="channel-icon">▲</span>
+              <span class="channel-label">LINKEDIN NET</span>
+              <span class="channel-val">linkedin.com/in/cipher</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="contact-form-wrap">
+          <div class="form-terminal-header">
+            <span>TRANSMISSION.INIT</span>
+            <span class="status-dot"></span>
+          </div>
+          <form class="contact-form" id="contactForm">
+            <div class="form-field">
+              <label class="form-label">SENDER_ID</label>
+              <input type="text" class="form-input" placeholder="Your name" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">RELAY_ADDR</label>
+              <input type="email" class="form-input" placeholder="your@email.com" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">PAYLOAD</label>
+              <textarea class="form-input form-textarea" placeholder="Describe your mission..." rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary btn--full">
+              <span class="btn-text">TRANSMIT MESSAGE</span>
+              <span class="btn-arrow">→</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-logo glitch-text" data-text="CIPHER.EXE">CIPHER.EXE</span>
+        <span class="footer-copy">© 2025 — ALL RIGHTS CLASSIFIED</span>
+        <span class="footer-sys">SYS:v2.4.1 — NODE_42</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
